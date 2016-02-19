@@ -65,7 +65,7 @@ public class AWSMain
 					{
 						Thread.sleep(1000);
 						cont+=1;
-						if(cont % 10 == 0){
+						if(cont % 30 == 0){
 							cont=0;
 							probe.refreshCurrentAllocation();
 							Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
