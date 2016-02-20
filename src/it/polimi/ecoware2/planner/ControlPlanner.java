@@ -87,7 +87,7 @@ public class ControlPlanner extends Planner
 		final float P_MIN = 0.2f;
 		final float P_MAX = 0.7f;
 		
-		final int N_STEP = 1;
+		final int N_STEP = 200;
 		
 		float rt = 2.29f;
 		float rtOld = rt;
