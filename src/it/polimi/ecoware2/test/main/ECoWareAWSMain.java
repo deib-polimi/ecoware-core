@@ -73,8 +73,8 @@ public class ECoWareAWSMain
 		while(probe.getCurrentAllocation().getC() != initialAlloc.getC()){
 			System.out.println(probe.getCurrentAllocation());
 			System.out.println(initialAlloc);
-
 			Thread.sleep(1000);
+			probe.refreshCurrentAllocation();
 		}
 		
 		new Thread(() -> {
@@ -114,9 +114,11 @@ public class ECoWareAWSMain
 							cont=0;
 							Allocation a=planner.nextResourceAllocation();
 							executor.scheduleNextAllocation();
+							probe.refreshCurrentAllocation();
 							while(probe.getCurrentAllocation().getC() != a.getC()){
 								Thread.sleep(1000);
 								System.out.println("Waiting for execution...");
+								probe.refreshCurrentAllocation();
 							}
 							
 							System.out.println("Execution done");
