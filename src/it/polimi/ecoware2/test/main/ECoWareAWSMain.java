@@ -70,6 +70,9 @@ public class ECoWareAWSMain
 		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "giovanni-experiments");
 
 		while(!probe.getCurrentAllocation().equals(initialAlloc)){
+			System.out.println(probe.getCurrentAllocation());
+			System.out.println(initialAlloc);
+
 			Thread.sleep(1000);
 		}
 		
@@ -96,7 +99,6 @@ public class ECoWareAWSMain
 				}
 				System.out.println("End planning iteration");
 		}).start();
-		
 		
 		jmeter.startTestWith(step, userPerStep);
 
