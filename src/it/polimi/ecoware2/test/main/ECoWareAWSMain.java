@@ -115,10 +115,16 @@ public class ECoWareAWSMain
 							Allocation a=planner.nextResourceAllocation();
 							executor.scheduleNextAllocation();
 							probe.refreshCurrentAllocation();
+							boolean changed=false;
 							while(probe.getCurrentAllocation().getC() != a.getC()){
 								Thread.sleep(1000);
 								System.out.println("Waiting for execution...");
 								probe.refreshCurrentAllocation();
+								changed = true;
+							}
+							if(changed){
+								System.out.println("Waiting 30s for cooldown of machine...");
+								Thread.sleep(30000);
 							}
 							
 							System.out.println("Execution done");
