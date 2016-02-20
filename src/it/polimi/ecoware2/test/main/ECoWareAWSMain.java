@@ -67,7 +67,7 @@ public class ECoWareAWSMain
 			System.out.println("end callback");
 			end = true; }));
 		
-		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "giovanni-experiments");
+		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "control-aws-experiments");
 
 		while(!probe.getCurrentAllocation().equals(initialAlloc)){
 			System.out.println(probe.getCurrentAllocation());
