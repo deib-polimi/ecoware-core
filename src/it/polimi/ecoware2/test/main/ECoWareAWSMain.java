@@ -69,7 +69,7 @@ public class ECoWareAWSMain
 		
 		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "control-aws-experiments");
 
-		while(!probe.getCurrentAllocation().equals(initialAlloc)){
+		while(probe.getCurrentAllocation().getC() != initialAlloc.getC()){
 			System.out.println(probe.getCurrentAllocation());
 			System.out.println(initialAlloc);
 
