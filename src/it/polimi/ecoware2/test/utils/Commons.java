@@ -25,6 +25,6 @@ public class Commons
 	public static final float SLA=0.5f;
 	public static final int SAMPLE_TIME = 60;
 
-	public static final String EXECUTOR_EXECUTE_ENDPOINT = "http://131.175.135.183:8000/api/executor";
+	public static final String EXECUTOR_EXECUTE_ENDPOINT = "http://localhost:8000/api/executor";
 
 }
