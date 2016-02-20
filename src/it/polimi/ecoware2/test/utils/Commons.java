@@ -19,10 +19,12 @@ public class Commons
 	public static final int SERVER_PORT = 80;
 	public static final String CONTAINER_ID = "0646d0cd73155d57cff79533dfb662d32c06ed881eec898bf8e01198b6a0ce76";
 	
-	public static final Allocation MAX_ALLOCATION=new Allocation((long) (10*1E9), 5);
+	public static final Allocation MAX_ALLOCATION=new Allocation((long) (10*1E9), 10);
 	public static final Allocation MIN_ALLOCATION=new Allocation((long) (1*1E9), 1);
 
 	public static final float SLA=0.5f;
+	public static final int SAMPLE_TIME = 60;
 
+	public static final String EXECUTOR_EXECUTE_ENDPOINT = "http://131.175.135.183:8000/api/executor";
 
 }

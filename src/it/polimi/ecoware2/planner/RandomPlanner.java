@@ -17,7 +17,7 @@ public class RandomPlanner extends Planner
 	private Random r = new Random();
 
 	@Override
-	public void nextResourceAllocation()
+	public Allocation nextResourceAllocation()
 	{
 
 		int maxM = (int) (maxAllocation.getM()/1E9);
@@ -29,6 +29,8 @@ public class RandomPlanner extends Planner
 		Allocation res = new Allocation(m, c);
 
 		Bus.getShared().put(Commons.PLAN_KEY, res);
+		
+		return res;
 
 	}
 

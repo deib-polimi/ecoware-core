@@ -22,5 +22,5 @@ public abstract class Planner
 		this.minAllocation=minAllocation;
 	}
 	
-	public abstract void nextResourceAllocation();
+	public abstract Allocation nextResourceAllocation();
 }

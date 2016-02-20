@@ -10,10 +10,11 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -73,7 +74,7 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 		private JsonParser parser = new JsonParser();
 
 		public Allocation getCurrentResources(){
-			DefaultHttpClient rest = new DefaultHttpClient();
+			HttpClient rest = HttpClientBuilder.create().build();
 			HttpGet getRequest = new HttpGet(
 					"http://"+ip+":"+port+"/containers/"+containerId+"/json");
 			getRequest.addHeader("accept", "application/json");
@@ -119,9 +120,8 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 		}
 
 		protected void setResources(long memory, String cpu){
-			DefaultHttpClient rest = new DefaultHttpClient();
+			HttpClient rest = HttpClientBuilder.create().build();
 			HttpPost postRequest = new HttpPost("http://"+ip+":"+port+"/containers/"+containerId+"/set");
-
 			StringEntity input;
 			try
 			{
@@ -149,9 +149,7 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 			{
 				e.printStackTrace();
 			}
-			finally {
-				rest.close();
-			}
+	
 		}
 
 

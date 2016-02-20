@@ -35,14 +35,14 @@ public class ControlPlanner extends Planner
 	
 	
 	@Override
-	public synchronized void nextResourceAllocation()
+	public synchronized Allocation nextResourceAllocation()
 	{
 		step++;
 		
 		AnalysisReport report = (AnalysisReport) Bus.getShared().get(Commons.ANALYSIS_KEY);
 		if(report == null || report.getAvgResponseTime()<=0.0f){
 			Bus.getShared().remove(Commons.PLAN_KEY);
-			return;
+			return null;
 		}
 		
 		float rt =  report.getAvgResponseTime();
@@ -64,8 +64,11 @@ public class ControlPlanner extends Planner
 
 		uiOld = approxUt-ke;
 		
+		Allocation res =  new Allocation((long) (approxCore*1E9), (int) approxCore);
+		Bus.getShared().put(Commons.PLAN_KEY, res);
 		
-		Bus.getShared().put(Commons.PLAN_KEY, new Allocation(getRandomMem(), (int) approxCore));
+		return res;
+		
 	}
 	
 

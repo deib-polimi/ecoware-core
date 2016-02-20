@@ -33,9 +33,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 	private double currentAvgRt=0;
 	private double current95Rt=0;
 	private double currentAvgReq=0;
-	
-	private static int SAMPLE_TIME = 10;
-	
+		
 	private DescriptiveStatistics rt = new DescriptiveStatistics();
 	private DescriptiveStatistics req = new DescriptiveStatistics();
 
@@ -78,7 +76,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 			rt.addValue(result.getLatency()/1E3);
 			req.addValue(result.getAllThreads());
 			
-			if(ts>baseTs+SAMPLE_TIME*1000){
+			if(ts>baseTs+Commons.SAMPLE_TIME*1000){
 				currentAvgReq=req.getMean();
 				currentAvgRt=rt.getMean();
 				current95Rt=rt.getPercentile(95);
