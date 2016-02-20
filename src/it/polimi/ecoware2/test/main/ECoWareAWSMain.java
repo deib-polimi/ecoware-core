@@ -114,7 +114,7 @@ public class ECoWareAWSMain
 							cont=0;
 							Allocation a=planner.nextResourceAllocation();
 							executor.scheduleNextAllocation();
-							while(!probe.getCurrentAllocation().equals(a)){
+							while(probe.getCurrentAllocation().getC() != a.getC()){
 								Thread.sleep(1000);
 								System.out.println("Waiting for execution...");
 							}
