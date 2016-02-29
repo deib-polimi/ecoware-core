@@ -67,7 +67,7 @@ public class ECoWareAWSMain
 			System.out.println("end callback");
 			end = true; }));
 		
-		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "control-aws-experiments");
+		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "rubis-web");
 		Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 
 		while(probe.getCurrentAllocation().getC() != initialAlloc.getC()){
