@@ -21,7 +21,7 @@ public class ControlPlanner extends Planner
 	private final float A3_NOM = 0.5658f;
 	
 	private final float P_NOM = 0.4f;
-	private final float A = 0.1f;
+	private final float A = 0.95f;
 		
 	private float uiOld = 0.0f;
 

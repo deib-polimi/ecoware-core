@@ -84,7 +84,7 @@ public class ECoWareAWSMain
 					{
 						Thread.sleep(1000);
 						cont+=1;
-						if(cont % 15 == 0){
+						if(cont % 10 == 0){
 							cont=0;
 							probe.refreshCurrentAllocation();
 							Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
@@ -115,7 +115,7 @@ public class ECoWareAWSMain
 							Allocation a=planner.nextResourceAllocation();
 							executor.scheduleNextAllocation();
 							probe.refreshCurrentAllocation();
-							boolean changed=false;
+							/*boolean changed=false;
 							while(probe.getCurrentAllocation().getC() != a.getC()){
 								Thread.sleep(1000);
 								System.out.println("Waiting for execution...");
@@ -126,6 +126,8 @@ public class ECoWareAWSMain
 								System.out.println("Waiting 30s for cooldown of machine...");
 								Thread.sleep(30000);
 							}
+							*/
+							
 							
 							System.out.println("Execution done");
 						}

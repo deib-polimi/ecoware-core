@@ -70,7 +70,6 @@ public class AWSMain
 							probe.refreshCurrentAllocation();
 							Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 							System.out.println(probe.getCurrentAllocation());
-
 						}
 						
 					}
