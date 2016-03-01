@@ -35,7 +35,7 @@ public class JMeterSetup
 		HTTPSampler httpSampler = new HTTPSampler();
 		httpSampler.setDomain(Commons.SERVER_HOST);
 		httpSampler.setPort(Commons.SERVER_PORT);
-		httpSampler.setPath("/rubis/servlet/BrowseRegions");
+		httpSampler.setPath(Commons.SERVER_PATH);
 		httpSampler.setMethod("GET");
 
 		LoopController loopController = new LoopController();
