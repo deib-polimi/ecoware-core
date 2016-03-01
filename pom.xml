@@ -31,7 +31,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>it.polimi.ecoware2.test.main.AWSMain</mainClass>
+							<mainClass>it.polimi.ecoware2.test.main.ECoWareAWSMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
