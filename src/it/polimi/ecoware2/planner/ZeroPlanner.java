@@ -18,6 +18,8 @@ public class ZeroPlanner extends Planner
 	{
 		Allocation zero = new Allocation(0,0);
 		Bus.getShared().put(Commons.PLAN_KEY, zero);
+		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, zero);
+
 		return zero;
 	}
 

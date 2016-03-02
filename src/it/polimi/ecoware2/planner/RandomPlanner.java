@@ -29,7 +29,8 @@ public class RandomPlanner extends Planner
 		Allocation res = new Allocation(m, c);
 
 		Bus.getShared().put(Commons.PLAN_KEY, res);
-		
+		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, res);
+
 		return res;
 
 	}

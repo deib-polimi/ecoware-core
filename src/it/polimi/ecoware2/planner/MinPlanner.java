@@ -17,6 +17,8 @@ public class MinPlanner extends Planner
 	public Allocation nextResourceAllocation()
 	{
 		Bus.getShared().put(Commons.PLAN_KEY, minAllocation);
+		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, minAllocation);
+
 		return minAllocation;
 	}
 	
