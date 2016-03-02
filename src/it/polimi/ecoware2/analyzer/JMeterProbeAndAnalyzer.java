@@ -52,6 +52,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 			fileWriter = new FileWriter(fileName);
 			log = new CSVPrinter(fileWriter, csvFileFormat);
 			log.printRecord("timestamp (ms)", "elapsed time (ms)", "url", "rt", "avg", "p95", "mem (byte)", "cpu core", "users");
+			log.flush();
 		}
 		catch (IOException e)
 		{
@@ -95,6 +96,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 					List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq);
 					List<String> record=values.stream().map(x -> x.toString()).collect(Collectors.toList());
 					log.printRecord(record);
+					log.flush();
 				}
 				catch (IOException e)
 				{

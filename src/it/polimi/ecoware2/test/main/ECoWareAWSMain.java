@@ -34,6 +34,7 @@ public class ECoWareAWSMain
 		String awsAccessKey = args[0];
 		String awsSecretKey = args[1];
 		String name = args[2];
+		
 		if(args!=null && args.length>3){
 			step=Integer.parseInt(args[3]);
 			resChange=Integer.parseInt(args[4]);

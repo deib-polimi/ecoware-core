@@ -27,20 +27,22 @@ public class AWSMain
 		
 		String awsAccessKey = args[0];
 		String awsSecretKey = args[1];
+		String name = args[2];
 		
-		if(args!=null && args.length>2){
-			step=Integer.parseInt(args[2]);
-			resChange=Integer.parseInt(args[3]);
+		if(args!=null && args.length>3){
+			step=Integer.parseInt(args[3]);
+			resChange=Integer.parseInt(args[4]);
 			
-			Integer[] steps=new Integer[args.length-4];
-			for(int i=4; i<args.length; i++){
-					steps[i-4]=Integer.parseInt(args[i]);
+			Integer[] steps=new Integer[args.length-5];
+			for(int i=5; i<args.length; i++){
+					steps[i-5]=Integer.parseInt(args[i]);
 			}
 			
 			userPerStep = steps;
 		}
 		
-		String fileName = "testleva-"+System.currentTimeMillis()+"--"+arrayToString(userPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
+		
+		String fileName = name+"-"+System.currentTimeMillis()+"--"+arrayToString(userPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
 	
 		System.out.println("New JMeter test is going to be launched");
 		System.out.println("Resource will change every "+resChange+" seconds");
