@@ -64,8 +64,7 @@ public class Commons
 			EXECUTOR_EXECUTE_ENDPOINT = properties.getProperty("EXECUTOR_EXECUTE_ENDPOINT");
 			SERVER_PATH = properties.getProperty("SERVER_PATH");
 			AWS_SCALE_GROUP = properties.getProperty("AWS_SCALE_GROUP");
-			
-			
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
