@@ -83,25 +83,26 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 				baseTs=ts;
 				rt.clear();
 				req.clear();
+				try
+				{	
+					AnalysisReport report = new AnalysisReport();
+					report.setAvgResponseTime((float)currentAvgRt);
+					report.setRequestNumber((int)currentAvgReq);
+					
+					Bus.getShared().put(Commons.ANALYSIS_KEY, report);
+
+					String[] urlParts = result.getURL().toString().split("/");
+					List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq);
+					List<String> record=values.stream().map(x -> x.toString()).collect(Collectors.toList());
+					log.printRecord(record);
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 			}
 			
-			try
-			{	
-				AnalysisReport report = new AnalysisReport();
-				report.setAvgResponseTime((float)currentAvgRt);
-				report.setRequestNumber((int)currentAvgReq);
-				
-				Bus.getShared().put(Commons.ANALYSIS_KEY, report);
-
-				String[] urlParts = result.getURL().toString().split("/");
-				List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq);
-				List<String> record=values.stream().map(x -> x.toString()).collect(Collectors.toList());
-				log.printRecord(record);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			
 		});
 	}
 	
