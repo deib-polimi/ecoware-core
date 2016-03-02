@@ -55,7 +55,7 @@ public class AWSMain
 			System.out.println("end callback");
 			end = true; }));
 		
-		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, "aws-rubis-web");
+		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, Commons.AWS_SCALE_GROUP);
 		Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 	
 		jmeter.startTestWith(step, userPerStep);
