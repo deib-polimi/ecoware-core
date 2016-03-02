@@ -23,7 +23,7 @@ public class Commons
 	public static final Allocation MIN_ALLOCATION=new Allocation((long) (1*1E9), 1);
 
 	public static final float SLA=0.5f;
-	public static final int SAMPLE_TIME = 10;
+	public static final int SAMPLE_TIME = 30;
 
 	public static final String EXECUTOR_EXECUTE_ENDPOINT = "http://localhost:8000/api/executor";
 	public static final String SERVER_PATH = "pweets"; //"/rubis/servlet/BrowseRegions";
