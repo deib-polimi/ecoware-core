@@ -30,7 +30,7 @@ public class AWSExecutor implements ResourceAllocator
 			JSONObject requestJson = new JSONObject();
 			JSONObject jboss = new JSONObject();
 
-			jboss.put("cpu_cores", a.getC());
+			jboss.put("cpu_cores", (int) a.getC());
 			jboss.put("mem_units", 2*a.getM()/1E9);
 			requestJson.put("jboss", jboss);
 		    System.out.println(requestJson);

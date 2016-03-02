@@ -33,7 +33,7 @@ public class AWSProbe
 	public synchronized void refreshCurrentAllocation(){
 		DescribeAutoScalingGroupsResult result = ec2.describeAutoScalingGroups(new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames(autoscaleGroupName));
 		long size = result.getAutoScalingGroups().get(0).getInstances().stream().filter((x) -> x.getLifecycleState().equals("InService")).count();
-		this.currentAllocation = new Allocation(vmFlavor.getM() * size, vmFlavor.getC() * (int) size);
+		this.currentAllocation = new Allocation(vmFlavor.getM() * size, ((float)(vmFlavor.getC() * (int) size)));
 	}
 	
 	public synchronized Allocation getCurrentAllocation(){

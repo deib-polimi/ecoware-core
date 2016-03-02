@@ -109,10 +109,10 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 
 		public boolean setResources(Allocation a){
 			String cpu; 
-			if(a.getC()==1)
+			if((int)(a.getC())==1)
 				cpu = "0";
 			else
-				cpu = "0-"+(a.getC()-1);
+				cpu = "0-"+((int)(a.getC())-1);
 
 			setResources(a.getM(), cpu);
 

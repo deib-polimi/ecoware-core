@@ -7,6 +7,7 @@ public class Commons
 {
 	public static final String MONITORING_KEY = "___mon___";
 	public static final String PLAN_KEY = "___plan___";
+	public static final String PLAN_UNAPPROX_KEY = "___unapprox_plan___";
 	public static final String ANALYSIS_KEY = "__analysis__";
 
 	public static final String RT_KEY = "__rt__";

@@ -51,7 +51,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 		{
 			fileWriter = new FileWriter(fileName);
 			log = new CSVPrinter(fileWriter, csvFileFormat);
-			log.printRecord("timestamp (ms)", "elapsed time (ms)", "url", "rt", "avg", "p95", "mem (byte)", "cpu core", "users");
+			log.printRecord("timestamp (ms)", "elapsed time (ms)", "url", "rt", "avg", "p95", "mem (byte)", "cpu core", "users", "P core", "P raw core");
 			log.flush();
 		}
 		catch (IOException e)
@@ -64,6 +64,13 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 	public void sampleOccurred(SampleEvent event){
 		
 		Allocation a = (Allocation) Bus.getShared().get(Commons.CURRENT_ALLOCATION_KEY);
+		
+		Allocation planAlloc = (Allocation) Bus.getShared().get(Commons.PLAN_KEY);
+		Allocation rawPlanAlloc = (Allocation) Bus.getShared().get(Commons.PLAN_UNAPPROX_KEY);
+		
+		final float planCore = planAlloc != null ? planAlloc.getC() : 0.0f;
+		final float rawPlanCore = rawPlanAlloc != null ? rawPlanAlloc.getC() : 0.0f;
+		
 		executor.execute(()->{
 
 			SampleResult result = event.getResult();
@@ -93,7 +100,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 					Bus.getShared().put(Commons.ANALYSIS_KEY, report);
 
 					String[] urlParts = result.getURL().toString().split("/");
-					List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq);
+					List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq, planCore, rawPlanCore);
 					List<String> record=values.stream().map(x -> x.toString()).collect(Collectors.toList());
 					log.printRecord(record);
 					log.flush();

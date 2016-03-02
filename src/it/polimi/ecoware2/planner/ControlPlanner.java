@@ -64,9 +64,10 @@ public class ControlPlanner extends Planner
 
 		uiOld = approxUt-ke;
 		
-		Allocation res =  new Allocation((long) (approxCore*1E9), (int) approxCore);
+		Allocation res =  new Allocation((long) (approxCore*1E9), approxCore);
 		Bus.getShared().put(Commons.PLAN_KEY, res);
-		
+		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, new Allocation((long) (((int)core)*1E9), core));
+
 		return res;
 		
 	}
@@ -106,7 +107,7 @@ public class ControlPlanner extends Planner
 			
 			cp.nextResourceAllocation();
 			
-			int core = ((Allocation)Bus.getShared().get(Commons.PLAN_KEY)).getC();
+			float core = ((Allocation)Bus.getShared().get(Commons.PLAN_KEY)).getC();
 			
 			System.out.println("CORE: "+core);
 			float p = (float) ((P_MIN+P_MAX)/2+(P_MAX-P_MIN)/2*Math.signum(Math.sin(2*Math.PI*k/N_STEP*4)));

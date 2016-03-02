@@ -23,8 +23,8 @@ public class RandomPlanner extends Planner
 		int maxM = (int) (maxAllocation.getM()/1E9);
 		int minM = (int)(minAllocation.getM()/1E9);
 		long m = (long) ((r.nextInt(maxM)+minM)*1E9);
-		int mc=maxAllocation.getC();
-		int c = r.nextInt(mc)+minAllocation.getC();
+		float mc = maxAllocation.getC();
+		float c = r.nextInt((int)mc)+minAllocation.getC();
 
 		Allocation res = new Allocation(m, c);
 

@@ -4,12 +4,12 @@ package it.polimi.ecoware2.executor;
 public class Allocation
 {
 	private final long m;
-	private final int c;
+	private final float c;
 	
 	
-	public Allocation(long m, int c){
+	public Allocation(long m, float f){
 		this.m=m;
-		this.c=c;
+		this.c=f;
 	}
 
 	public long getM()
@@ -18,7 +18,7 @@ public class Allocation
 	}
 
 	
-	public int getC()
+	public float getC()
 	{
 		return c;
 	}
