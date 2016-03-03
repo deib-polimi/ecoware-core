@@ -18,6 +18,7 @@ public class Commons
 	public static final String RT_KEY = "__rt__";
 	public static final String REQ_KEY = "__req__";
 	public static final String CURRENT_ALLOCATION_KEY = "___ca___";
+	public static float CONTROLLER_ALPHA;
 	
 	
 	public static String CONTAINER_HOST;// = "131.175.135.184";
@@ -64,6 +65,8 @@ public class Commons
 			EXECUTOR_EXECUTE_ENDPOINT = properties.getProperty("EXECUTOR_EXECUTE_ENDPOINT");
 			SERVER_PATH = properties.getProperty("SERVER_PATH");
 			AWS_SCALE_GROUP = properties.getProperty("AWS_SCALE_GROUP");
+			CONTROLLER_ALPHA = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA"));
+
 						
 		} catch (Exception e) {
 			e.printStackTrace();
