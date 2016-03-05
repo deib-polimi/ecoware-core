@@ -93,7 +93,8 @@ public class ECoWareContainerMain
 			end = true; }, pwitterBusKey));
 		
 		probe = new ContainerProbe();
-		//Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
+		Bus.getShared(rubisBusKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getRubisAllocation());
+		Bus.getShared(pwitterBusKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getPwitterAllocation());
 
 		/*while(probe.getCurrentAllocation().getC() != initialAlloc.getC()){
 			System.out.println(probe.getCurrentAllocation());
