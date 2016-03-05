@@ -2,7 +2,6 @@ package it.polimi.ecoware2.test.main;
 
 import it.polimi.ecoware2.analyzer.ContainerProbe;
 import it.polimi.ecoware2.analyzer.JMeterProbeAndAnalyzer;
-import it.polimi.ecoware2.executor.Allocation;
 import it.polimi.ecoware2.executor.MonolithicExecutor;
 import it.polimi.ecoware2.executor.ResourceAllocator;
 import it.polimi.ecoware2.planner.ControlPlanner;
@@ -36,8 +35,8 @@ public class ECoWareContainerMain
 	
 	public static void main(String[] args) throws Exception {
 		
-		String awsAccessKey = args[0];
-		String awsSecretKey = args[1];
+		//String awsAccessKey = args[0];
+		//String awsSecretKey = args[1];
 		String name = args[2];
 		
 		if(args!=null && args.length>3){
@@ -89,9 +88,9 @@ public class ECoWareContainerMain
 			end = true; }, rubisBusKey));
 		
 		pwitterJmeter=new JMeterSetup();
-		pwitterJmeter.setCollector(new JMeterProbeAndAnalyzer(rubisFileName, () -> { 
+		pwitterJmeter.setCollector(new JMeterProbeAndAnalyzer(pwitterFileName, () -> { 
 			System.out.println("end callback");
-			end = true; }, rubisBusKey));
+			end = true; }, pwitterBusKey));
 		
 		probe = new ContainerProbe();
 		//Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());

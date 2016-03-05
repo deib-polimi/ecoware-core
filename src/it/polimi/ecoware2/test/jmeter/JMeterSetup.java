@@ -1,6 +1,5 @@
 package it.polimi.ecoware2.test.jmeter;
 
-import it.polimi.ecoware2.test.utils.Commons;
 import kg.apc.jmeter.threads.UltimateThreadGroup;
 
 import org.apache.jmeter.control.LoopController;

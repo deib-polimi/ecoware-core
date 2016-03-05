@@ -1,10 +1,9 @@
 package it.polimi.ecoware2.analyzer;
 
-import java.io.IOException;
-import java.util.Iterator;
-
 import it.polimi.ecoware2.executor.Allocation;
 import it.polimi.ecoware2.test.utils.Commons;
+
+import java.io.IOException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -30,6 +29,7 @@ public class ContainerProbe
 		HttpGet request = new HttpGet(Commons.EXECUTOR_ALLOCATION_ENDPOINT);
 	    try
 		{
+	    	/*
 			HttpResponse response = client.execute(request);
 			String jsonString = EntityUtils.toString(response.getEntity());	
 			JSONObject json = new JSONObject(jsonString);
@@ -54,9 +54,20 @@ public class ContainerProbe
 					
 				}
 			}
+			*/
+	    	
+	    	HttpResponse response = client.execute(request);
+			String jsonString = EntityUtils.toString(response.getEntity());	
+			JSONObject json = new JSONObject(jsonString);
+		
+			float pwitterCpu = json.getJSONObject("pwitter-web").getString("CpusetCpus").split(",").length;
+			float rubisCpu = json.getJSONObject("rubis-jboss").getString("CpusetCpus").split(",").length;
 			
-			this.pwitterAllocation = new Allocation((long) (pwitterMem*1E9), pwitterCpu);
-			this.rubisAllocation = new Allocation((long) (rubisMem*1E9), rubisCpu);
+			long pwitterMem = json.getJSONObject("pwitter-web").getLong("Memory");
+			long rubisMem = json.getJSONObject("rubis-jboss").getLong("Memory");
+			
+			this.pwitterAllocation = new Allocation(pwitterMem, pwitterCpu);
+			this.rubisAllocation = new Allocation(rubisMem, rubisCpu);
 
 			
 		}
@@ -72,5 +83,13 @@ public class ContainerProbe
 	
 	public synchronized Allocation getRubisAllocation(){
 		return rubisAllocation;
+	}
+	
+	
+	public static void main(String[] args){
+		ContainerProbe p = new ContainerProbe();
+		System.out.println(p.getPwitterAllocation());
+		System.out.println(p.getRubisAllocation());
+
 	}
 }
