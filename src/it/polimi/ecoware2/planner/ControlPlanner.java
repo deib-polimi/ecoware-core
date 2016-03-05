@@ -21,7 +21,7 @@ public class ControlPlanner extends Planner
 	private final float A3_NOM = 0.5658f;
 	
 	private final float P_NOM = 0.4f;
-	private final float A = Commons.CONTROLLER_ALPHA;
+	private final float A;
 		
 	private float uiOld = 0.0f;
 
@@ -30,6 +30,15 @@ public class ControlPlanner extends Planner
 		super(minAllocation, maxAllocation, busKey);
 		MAX_MEM = (int) (maxAllocation.getM()/1E9);
 		MIM_MEM = (int)(minAllocation.getM()/1E9);
+		A = Commons.CONTROLLER_ALPHA;
+	}
+
+	public ControlPlanner(Allocation minAllocation, Allocation maxAllocation, float alpha, String busKey)
+	{
+		super(minAllocation, maxAllocation, busKey);
+		MAX_MEM = (int) (maxAllocation.getM()/1E9);
+		MIM_MEM = (int)(minAllocation.getM()/1E9);
+		A = alpha;
 	}
 
 	

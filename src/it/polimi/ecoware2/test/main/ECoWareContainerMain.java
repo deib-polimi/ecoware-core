@@ -72,8 +72,8 @@ public class ECoWareContainerMain
 		System.out.println("Resource will change every "+resChange+" seconds");
 		
 		executor = new MonolithicExecutor(Arrays.asList(rubisBusKey, pwitterBusKey));
-		rubisPlanner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, rubisBusKey);
-		pwitterPlanner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, pwitterBusKey);
+		rubisPlanner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, Commons.CONTROLLER_ALPHA_RUBIS, rubisBusKey);
+		pwitterPlanner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, Commons.CONTROLLER_ALPHA_PWITTER, pwitterBusKey);
 
 		Planner rubisStartingPlanner = new MinPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, rubisBusKey);
 		Planner pwitterStartingPlanner = new MinPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, pwitterBusKey);

@@ -19,7 +19,9 @@ public class Commons
 	public static final String REQ_KEY = "__req__";
 	public static final String CURRENT_ALLOCATION_KEY = "___ca___";
 	public static float CONTROLLER_ALPHA;
-	
+	public static float CONTROLLER_ALPHA_PWITTER;
+	public static float CONTROLLER_ALPHA_RUBIS;
+
 	
 	public static String CONTAINER_HOST;// = "131.175.135.184";
 	public static int CONTAINER_PORT;// = 2375;
@@ -68,6 +70,8 @@ public class Commons
 			EXECUTOR_ALLOCATION_ENDPOINT = properties.getProperty("EXECUTOR_ALLOCATION_ENDPOINT");
 			SERVER_PATH = properties.getProperty("SERVER_PATH");
 			AWS_SCALE_GROUP = properties.getProperty("AWS_SCALE_GROUP");
+			CONTROLLER_ALPHA_RUBIS = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_RUBIS"));
+			CONTROLLER_ALPHA_PWITTER = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_PWITTER"));
 			CONTROLLER_ALPHA = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA"));
 
 						
