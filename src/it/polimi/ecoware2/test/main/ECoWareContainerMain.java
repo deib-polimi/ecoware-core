@@ -65,8 +65,8 @@ public class ECoWareContainerMain
 		String rubisFileName = "rubis-"+name+"-"+System.currentTimeMillis()+"--"+arrayToString(rubisUserPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
 		String pwitterFileName = "pwitter-"+name+"-"+System.currentTimeMillis()+"--"+arrayToString(pwitterUserPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
 
-		String rubisBusKey = "rubis";
-		String pwitterBusKey = "pwitter";
+		String rubisBusKey = "rubis-jboss";
+		String pwitterBusKey = "pwitter-web";
 
 		System.out.println("New JMeter test is going to be launched");
 		System.out.println("Resource will change every "+resChange+" seconds");
