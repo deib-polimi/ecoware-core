@@ -9,9 +9,9 @@ import java.util.Random;
 
 public class RandomPlanner extends Planner
 {
-	public RandomPlanner(Allocation minAllocation, Allocation maxAllocation)
+	public RandomPlanner(Allocation minAllocation, Allocation maxAllocation, String busKey)
 	{
-		super(minAllocation, maxAllocation);
+		super(minAllocation, maxAllocation, busKey);
 	}
 
 	private Random r = new Random();
@@ -28,8 +28,8 @@ public class RandomPlanner extends Planner
 
 		Allocation res = new Allocation(m, c);
 
-		Bus.getShared().put(Commons.PLAN_KEY, res);
-		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, res);
+		Bus.getShared(busKey).put(Commons.PLAN_KEY, res);
+		Bus.getShared(busKey).put(Commons.PLAN_UNAPPROX_KEY, res);
 
 		return res;
 

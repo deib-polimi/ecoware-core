@@ -25,9 +25,9 @@ public class ControlPlanner extends Planner
 		
 	private float uiOld = 0.0f;
 
-	public ControlPlanner(Allocation minAllocation, Allocation maxAllocation)
+	public ControlPlanner(Allocation minAllocation, Allocation maxAllocation, String busKey)
 	{
-		super(minAllocation, maxAllocation);
+		super(minAllocation, maxAllocation, busKey);
 		MAX_MEM = (int) (maxAllocation.getM()/1E9);
 		MIM_MEM = (int)(minAllocation.getM()/1E9);
 	}
@@ -39,9 +39,9 @@ public class ControlPlanner extends Planner
 	{
 		step++;
 		
-		AnalysisReport report = (AnalysisReport) Bus.getShared().get(Commons.ANALYSIS_KEY);
+		AnalysisReport report = (AnalysisReport) Bus.getShared(busKey).get(Commons.ANALYSIS_KEY);
 		if(report == null || report.getAvgResponseTime()<=0.0f){
-			Bus.getShared().remove(Commons.PLAN_KEY);
+			Bus.getShared(busKey).remove(Commons.PLAN_KEY);
 			return null;
 		}
 		
@@ -65,8 +65,8 @@ public class ControlPlanner extends Planner
 		uiOld = approxUt-ke;
 		
 		Allocation res =  new Allocation((long) (approxCore*1E9), approxCore);
-		Bus.getShared().put(Commons.PLAN_KEY, res);
-		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, new Allocation((long) (((int)core)*1E9), core));
+		Bus.getShared(busKey).put(Commons.PLAN_KEY, res);
+		Bus.getShared(busKey).put(Commons.PLAN_UNAPPROX_KEY, new Allocation((long) (((int)core)*1E9), core));
 
 		return res;
 		
@@ -92,8 +92,9 @@ public class ControlPlanner extends Planner
 		
 		float rt = 2.29f;
 		float rtOld = rt;
+		String busKey = "test";
 		
-		ControlPlanner cp = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION);
+		ControlPlanner cp = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 
 		for(int k = 1; k < N_STEP+1; k++){
 			
@@ -103,11 +104,11 @@ public class ControlPlanner extends Planner
 			ar.setAvgResponseTime(rt);
 			ar.setRequestNumber(req);
 			
-			Bus.getShared().put(Commons.ANALYSIS_KEY, ar);
+			Bus.getShared(busKey).put(Commons.ANALYSIS_KEY, ar);
 			
 			cp.nextResourceAllocation();
 			
-			float core = ((Allocation)Bus.getShared().get(Commons.PLAN_KEY)).getC();
+			float core = ((Allocation)Bus.getShared(busKey).get(Commons.PLAN_KEY)).getC();
 			
 			System.out.println("CORE: "+core);
 			float p = (float) ((P_MIN+P_MAX)/2+(P_MAX-P_MIN)/2*Math.signum(Math.sin(2*Math.PI*k/N_STEP*4)));

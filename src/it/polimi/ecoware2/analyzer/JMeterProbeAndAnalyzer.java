@@ -33,17 +33,21 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 	private double currentAvgRt=0;
 	private double current95Rt=0;
 	private double currentAvgReq=0;
-		
+	
+	
+	private final String busKey;
+	
 	private DescriptiveStatistics rt = new DescriptiveStatistics();
 	private DescriptiveStatistics req = new DescriptiveStatistics();
 
 	private ExecutorService executor=Executors.newFixedThreadPool(1);
 	
-	public JMeterProbeAndAnalyzer(String fileName, Runnable endCallback){
+	public JMeterProbeAndAnalyzer(String fileName, Runnable endCallback, String busKey){
 		
 		super(null);
 		
 		this.endCallback = endCallback;
+		this.busKey = busKey;
 		
         CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
         FileWriter fileWriter;
@@ -63,10 +67,10 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 	}
 	public void sampleOccurred(SampleEvent event){
 		
-		Allocation a = (Allocation) Bus.getShared().get(Commons.CURRENT_ALLOCATION_KEY);
+		Allocation a = (Allocation) Bus.getShared(busKey).get(Commons.CURRENT_ALLOCATION_KEY);
 		
-		Allocation planAlloc = (Allocation) Bus.getShared().get(Commons.PLAN_KEY);
-		Allocation rawPlanAlloc = (Allocation) Bus.getShared().get(Commons.PLAN_UNAPPROX_KEY);
+		Allocation planAlloc = (Allocation) Bus.getShared(busKey).get(Commons.PLAN_KEY);
+		Allocation rawPlanAlloc = (Allocation) Bus.getShared(busKey).get(Commons.PLAN_UNAPPROX_KEY);
 		
 		final float planCore = planAlloc != null ? planAlloc.getC() : 0.0f;
 		final float rawPlanCore = rawPlanAlloc != null ? rawPlanAlloc.getC() : 0.0f;
@@ -97,7 +101,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 					report.setAvgResponseTime((float)currentAvgRt);
 					report.setRequestNumber((int)currentAvgReq);
 					
-					Bus.getShared().put(Commons.ANALYSIS_KEY, report);
+					Bus.getShared(busKey).put(Commons.ANALYSIS_KEY, report);
 
 					String[] urlParts = result.getURL().toString().split("/");
 					List<Object> values=Arrays.asList(ts, (ts-firstTs), urlParts[urlParts.length-1], result.getLatency()/1E3, currentAvgRt, current95Rt, a.getM()/1E9, a.getC(), currentAvgReq, planCore, rawPlanCore);

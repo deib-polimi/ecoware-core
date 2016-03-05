@@ -7,9 +7,11 @@ public abstract class Planner
 {
 	protected Allocation maxAllocation;
 	protected Allocation minAllocation;
-		
-	public Planner(Allocation minAllocation, Allocation maxAllocation)
+	protected String busKey;
+	
+	public Planner(Allocation minAllocation, Allocation maxAllocation, String busKey)
 	{
+		this.busKey = busKey;
 		setMinAllocation(minAllocation);
 		setMaxAllocation(maxAllocation);
 	}

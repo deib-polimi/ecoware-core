@@ -8,17 +8,17 @@ import it.polimi.ecoware2.test.utils.Commons;
 public class ZeroPlanner extends Planner
 {
 
-	public ZeroPlanner(Allocation minAllocation, Allocation maxAllocation)
+	public ZeroPlanner(Allocation minAllocation, Allocation maxAllocation, String busKey)
 	{
-		super(minAllocation, maxAllocation);
+		super(minAllocation, maxAllocation, busKey);
 	}
 
 	@Override
 	public Allocation nextResourceAllocation()
 	{
 		Allocation zero = new Allocation(0,0);
-		Bus.getShared().put(Commons.PLAN_KEY, zero);
-		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, zero);
+		Bus.getShared(busKey).put(Commons.PLAN_KEY, zero);
+		Bus.getShared(busKey).put(Commons.PLAN_UNAPPROX_KEY, zero);
 
 		return zero;
 	}

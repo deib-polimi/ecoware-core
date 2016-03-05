@@ -7,17 +7,17 @@ import it.polimi.ecoware2.test.utils.Commons;
 
 public class MinPlanner extends Planner
 {
-	public MinPlanner(Allocation minAllocation, Allocation maxAllocation)
+	public MinPlanner(Allocation minAllocation, Allocation maxAllocation, String busKey)
 	{
-		super(minAllocation, maxAllocation);
+		super(minAllocation, maxAllocation, busKey);
 	}
 
 
 	@Override
 	public Allocation nextResourceAllocation()
 	{
-		Bus.getShared().put(Commons.PLAN_KEY, minAllocation);
-		Bus.getShared().put(Commons.PLAN_UNAPPROX_KEY, minAllocation);
+		Bus.getShared(busKey).put(Commons.PLAN_KEY, minAllocation);
+		Bus.getShared(busKey).put(Commons.PLAN_UNAPPROX_KEY, minAllocation);
 
 		return minAllocation;
 	}

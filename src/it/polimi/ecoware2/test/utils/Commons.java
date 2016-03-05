@@ -34,6 +34,8 @@ public class Commons
 	public static  int SAMPLE_TIME;// = 30;
 
 	public static  String EXECUTOR_EXECUTE_ENDPOINT;// = "http://localhost:8000/api/executor";
+	public static  String EXECUTOR_ALLOCATION_ENDPOINT;
+
 	public static  String SERVER_PATH;// = "pweets"; //"/rubis/servlet/BrowseRegions";
 	
 	public static  String AWS_SCALE_GROUP;// = "pwitter-web";

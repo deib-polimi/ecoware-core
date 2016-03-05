@@ -14,6 +14,13 @@ import com.amazonaws.util.json.JSONObject;
 public class AWSExecutor implements ResourceAllocator
 {
 	
+	private String busKey;
+	
+	public AWSExecutor(String busKey)
+	{
+		this.busKey = busKey;
+	}
+	
 	@Override
 	public void scheduleNextAllocation()
 	{
@@ -23,7 +30,7 @@ public class AWSExecutor implements ResourceAllocator
 		try
 		{
 			
-			Allocation a = (Allocation) Bus.getShared().get(Commons.PLAN_KEY);
+			Allocation a = (Allocation) Bus.getShared(busKey).get(Commons.PLAN_KEY);
 			if(a == null)
 				return;
 			

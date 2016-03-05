@@ -24,14 +24,16 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 {
 
 	private DockerRestClient client;
-
-	public DockerResourceAllocator(String ip, int port, String containerId){
+	private String busKey;
+	
+	public DockerResourceAllocator(String ip, int port, String containerId, String busKey){
 		this.ip = ip;
 		this.port = port;
 		this.containerId = containerId;
+		this.busKey = busKey;
 		client = new DockerRestClient();
 		this.allocation=client.getCurrentResources();
-		Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, this.allocation);
+		Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, this.allocation);
 		System.out.println("Starting allocation "+allocation);
 	}
 
@@ -39,7 +41,7 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 	public void scheduleNextAllocation()
 	{
 		
-		Allocation a = (Allocation) Bus.getShared().get(Commons.PLAN_KEY);
+		Allocation a = (Allocation) Bus.getShared(busKey).get(Commons.PLAN_KEY);
 		
 		if(a==null){
 			System.out.println("No allocation planned this step");
@@ -61,7 +63,7 @@ public class DockerResourceAllocator extends ContainerResourceAllocator
 		boolean r = client.setResources(a);
 		if(r){
 			this.allocation = a;
-			Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, a);
+			Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, a);
 			System.out.println("New resources allocated "+a);
 		}
 		else

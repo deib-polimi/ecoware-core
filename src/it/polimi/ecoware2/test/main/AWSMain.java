@@ -41,7 +41,7 @@ public class AWSMain
 			userPerStep = steps;
 		}
 		
-		
+		String busKey = "experiment";
 		String fileName = name+"-"+System.currentTimeMillis()+"--"+arrayToString(userPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
 	
 		System.out.println("New JMeter test is going to be launched");
@@ -53,13 +53,13 @@ public class AWSMain
 		jmeter=new JMeterSetup();
 		jmeter.setCollector(new JMeterProbeAndAnalyzer(fileName, () -> { 
 			System.out.println("end callback");
-			end = true; }));
+			end = true; }, busKey));
 		
 		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, Commons.AWS_SCALE_GROUP);
-		Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
+		Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 	
-		jmeter.startTestWith(step, userPerStep);
-
+		jmeter.startTestWith(step, userPerStep, Commons.SERVER_HOST, Commons.SERVER_PORT, Commons.SERVER_PATH);
+		
 		new Thread(() -> {
 			int cont=0;
 				while(!end){
@@ -70,7 +70,7 @@ public class AWSMain
 						if(cont % 30 == 0){
 							cont=0;
 							probe.refreshCurrentAllocation();
-							Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
+							Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 							System.out.println(probe.getCurrentAllocation());
 						}
 						

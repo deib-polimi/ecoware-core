@@ -30,12 +30,12 @@ public class JMeterSetup
 		this.collector = collector;
 	}
 	
-	public void startTestWith(int stepDuration, Integer[] userSteps){
+	public void startTestWith(int stepDuration, Integer[] userSteps, String serverHost, Integer serverPort, String serverPath){
 		
 		HTTPSampler httpSampler = new HTTPSampler();
-		httpSampler.setDomain(Commons.SERVER_HOST);
-		httpSampler.setPort(Commons.SERVER_PORT);
-		httpSampler.setPath(Commons.SERVER_PATH);
+		httpSampler.setDomain(serverHost);
+		httpSampler.setPort(serverPort);
+		httpSampler.setPath(serverPath);
 		httpSampler.setMethod("GET");
 
 		LoopController loopController = new LoopController();

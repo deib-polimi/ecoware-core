@@ -44,20 +44,21 @@ public class ECoWareMain
 		System.out.println("Saving output on file "+fileName);
 
 		numStep = userPerStep.length;
+		String busKey = "experiment";
 		
-		executor = new DockerResourceAllocator(Commons.CONTAINER_HOST, Commons.CONTAINER_PORT, Commons.CONTAINER_ID);
-		planner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION);
+		executor = new DockerResourceAllocator(Commons.CONTAINER_HOST, Commons.CONTAINER_PORT, Commons.CONTAINER_ID, busKey);
+		planner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 		
-		Planner startingPlanner = new RandomPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION);
+		Planner startingPlanner = new RandomPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 		startingPlanner.nextResourceAllocation();
 		executor.scheduleNextAllocation();
 		
 		jmeter=new JMeterSetup();
 		jmeter.setCollector(new JMeterProbeAndAnalyzer(fileName, () -> { 
 			System.out.println("end callback");
-			end = true; }));
+			end = true; }, busKey));
 		
-		jmeter.startTestWith(step, userPerStep);
+		jmeter.startTestWith(step, userPerStep, Commons.SERVER_HOST, Commons.SERVER_PORT, Commons.SERVER_PATH);
 		
 		
 		new Thread(() -> {

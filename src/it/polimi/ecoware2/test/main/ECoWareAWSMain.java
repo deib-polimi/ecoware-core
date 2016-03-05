@@ -49,27 +49,28 @@ public class ECoWareAWSMain
 		
 		
 		String fileName = name+"-"+System.currentTimeMillis()+"--"+arrayToString(userPerStep)+"_"+step+"_"+numStep+"_"+resChange+".csv";
-	
+		String busKey = "experiment";
+		
 		System.out.println("New JMeter test is going to be launched");
 		System.out.println("Resource will change every "+resChange+" seconds");
 		System.out.println("Saving output on file "+fileName);
 
 		numStep = userPerStep.length;
 		
-		executor = new AWSExecutor();
-		planner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION);
+		executor = new AWSExecutor(busKey);
+		planner = new ControlPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 		
-		Planner startingPlanner = new MinPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION);
+		Planner startingPlanner = new MinPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 		Allocation initialAlloc=startingPlanner.nextResourceAllocation();
 		executor.scheduleNextAllocation();
 		
 		jmeter=new JMeterSetup();
 		jmeter.setCollector(new JMeterProbeAndAnalyzer(fileName, () -> { 
 			System.out.println("end callback");
-			end = true; }));
+			end = true; }, busKey));
 		
 		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), awsAccessKey, awsSecretKey, Regions.US_WEST_2, Commons.AWS_SCALE_GROUP);
-		Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
+		Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 
 		while(probe.getCurrentAllocation().getC() != initialAlloc.getC()){
 			System.out.println(probe.getCurrentAllocation());
@@ -88,7 +89,7 @@ public class ECoWareAWSMain
 						if(cont % 10 == 0){
 							cont=0;
 							probe.refreshCurrentAllocation();
-							Bus.getShared().put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
+							Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 							System.out.println(probe.getCurrentAllocation());
 
 						}
@@ -102,7 +103,7 @@ public class ECoWareAWSMain
 				System.out.println("End planning iteration");
 		}).start();
 		
-		jmeter.startTestWith(step, userPerStep);
+		jmeter.startTestWith(step, userPerStep, Commons.SERVER_HOST, Commons.SERVER_PORT, Commons.SERVER_PATH);
 
 		new Thread(() -> {
 			int cont=0;
