@@ -86,7 +86,7 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 			}
 			
 			rt.addValue(result.getLatency()/1E3);
-			req.addValue(result.getAllThreads());
+			req.addValue(result.getGroupThreads());
 			
 			if(ts>baseTs+Commons.SAMPLE_TIME*1000){
 				currentAvgReq=req.getMean();

@@ -60,7 +60,7 @@ public class ControlPlanner extends Planner
 		
 		float approxUt = ((1000.0f*A2_NOM+A1_NOM)*req+1000.0f*A1_NOM*A3_NOM*approxCore)/(req+1000.0f*A3_NOM*approxCore);
 		
-		System.out.println("*Control planner, step "+step+"*\nCurrent rt: "+rt+"\nCurrent users: "+req+"\nSLA is set to: "+Commons.SLA+"\nError is: "+e+"\nke is: "+ke+"\nUi, UiOld, Utilde and approxUtilde are: "+ui+" "+uiOld+" "+ut+" "+approxUt+"\nCore and approxCore are: "+core+" "+approxCore+"\n");
+		System.out.println("*Control planner - "+busKey+", step "+step+"*\nCurrent rt: "+rt+"\nCurrent users: "+req+"\nSLA is set to: "+Commons.SLA+"\nError is: "+e+"\nke is: "+ke+"\nUi, UiOld, Utilde and approxUtilde are: "+ui+" "+uiOld+" "+ut+" "+approxUt+"\nCore and approxCore are: "+core+" "+approxCore+"\n");
 
 		uiOld = approxUt-ke;
 		

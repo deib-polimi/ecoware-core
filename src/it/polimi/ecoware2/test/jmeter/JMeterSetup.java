@@ -58,7 +58,7 @@ public class JMeterSetup
         System.out.println(threadGroup.getData());
         
 		HashTree testPlanTree = new HashTree();
-		TestPlan testPlan = new TestPlan("Create JMeter Script From Java Code");
+		TestPlan testPlan = new TestPlan("Create JMeter Script From Java Code"+serverPort);
 		HashTree secondTree = new HashTree();
 		HashTree thirdTree = new HashTree();
 		thirdTree.add(httpSampler, new HashTree());
