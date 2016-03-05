@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 import com.amazonaws.util.json.JSONObject;
 
@@ -65,7 +67,8 @@ public class MonolithicExecutor implements ResourceAllocator
 			params = new StringEntity(requestJson.toString());
 			request.addHeader("content-type", "application/json");
 		    request.setEntity(params);
-		    client.execute(request);
+		    HttpResponse response = client.execute(request);
+		    System.out.println("Executor response: "+EntityUtils.toString(response.getEntity(), "UTF-8"));
 		    
 		}
 		catch (Exception e)
