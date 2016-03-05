@@ -61,7 +61,7 @@ public class MonolithicExecutor implements ResourceAllocator
 		
 		    System.out.println(requestJson);
 			HttpClient client = HttpClientBuilder.create().build();
-			HttpPost request = new HttpPost("http://52.34.21.239:8000/api/executor");
+			HttpPost request = new HttpPost(Commons.EXECUTOR_EXECUTE_ENDPOINT);
 			params = new StringEntity(requestJson.toString());
 			request.addHeader("content-type", "application/json");
 		    request.setEntity(params);
@@ -78,7 +78,7 @@ public class MonolithicExecutor implements ResourceAllocator
 	
 	public static void main(String[] args){
 		MonolithicExecutor m = new MonolithicExecutor(Arrays.asList("pwitter-web", "rubis-jboss"));
-		Bus.getShared("pwitter-web").put(Commons.PLAN_KEY, new Allocation((long) (2*1E9), 3));
+		Bus.getShared("pwitter-web").put(Commons.PLAN_KEY, new Allocation((long) (3*1E9), 3));
 		Bus.getShared("rubis-jboss").put(Commons.PLAN_KEY, new Allocation((long) (3*1E9), 4));
 		m.scheduleNextAllocation();
 
