@@ -26,17 +26,17 @@ public class AWSProbe
 		
 		ec2 = new AmazonAutoScalingClient(new BasicAWSCredentials(awsKey, awsSecret));
 		ec2.setRegion(Region.getRegion(region));
-		refreshCurrentAllocation();
+		fetchAllocationFromAWS();
 		
 	}
 	
-	public synchronized void refreshCurrentAllocation(){
+	public synchronized void fetchAllocationFromAWS(){
 		DescribeAutoScalingGroupsResult result = ec2.describeAutoScalingGroups(new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames(autoscaleGroupName));
 		long size = result.getAutoScalingGroups().get(0).getInstances().stream().filter((x) -> x.getLifecycleState().equals("InService")).count();
 		this.currentAllocation = new Allocation(vmFlavor.getM() * size, ((float)(vmFlavor.getC() * (int) size)));
 	}
 	
-	public synchronized Allocation getCurrentAllocation(){
+	public synchronized Allocation getCurrentAllocation() {
 		return this.currentAllocation;
 	}
 	

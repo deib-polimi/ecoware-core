@@ -1,8 +1,8 @@
 package it.polimi.ecoware2.analyzer;
 
 import it.polimi.ecoware2.executor.Allocation;
-import it.polimi.ecoware2.test.utils.Bus;
-import it.polimi.ecoware2.test.utils.Commons;
+import it.polimi.ecoware2.utils.Bus;
+import it.polimi.ecoware2.utils.Commons;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,7 +33,6 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 	private double currentAvgRt=0;
 	private double current95Rt=0;
 	private double currentAvgReq=0;
-	
 	
 	private final String busKey;
 	
@@ -109,6 +108,8 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
 					log.printRecord(record);
 					log.flush();
 				}
+				
+				
 				catch (IOException e)
 				{
 					e.printStackTrace();

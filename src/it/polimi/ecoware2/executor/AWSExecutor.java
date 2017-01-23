@@ -1,7 +1,7 @@
 package it.polimi.ecoware2.executor;
 
-import it.polimi.ecoware2.test.utils.Bus;
-import it.polimi.ecoware2.test.utils.Commons;
+import it.polimi.ecoware2.utils.Bus;
+import it.polimi.ecoware2.utils.Commons;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -39,7 +39,7 @@ public class AWSExecutor implements ResourceAllocator
 
 			jboss.put("cpu_cores", (int) a.getC());
 			jboss.put("mem_units", 2*a.getM()/1E9);
-			requestJson.put("jboss", jboss);
+			requestJson.put("app_server", jboss);
 		    System.out.println(requestJson);
 			HttpClient client = HttpClientBuilder.create().build();
 			HttpPost request = new HttpPost(Commons.EXECUTOR_EXECUTE_ENDPOINT);

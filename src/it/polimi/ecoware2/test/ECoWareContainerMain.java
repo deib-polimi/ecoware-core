@@ -1,4 +1,4 @@
-package it.polimi.ecoware2.test.main;
+package it.polimi.ecoware2.test;
 
 import it.polimi.ecoware2.analyzer.ContainerProbe;
 import it.polimi.ecoware2.analyzer.JMeterProbeAndAnalyzer;
@@ -9,8 +9,8 @@ import it.polimi.ecoware2.planner.LimitContainersPlanner;
 import it.polimi.ecoware2.planner.MinPlanner;
 import it.polimi.ecoware2.planner.Planner;
 import it.polimi.ecoware2.test.jmeter.JMeterSetup;
-import it.polimi.ecoware2.test.utils.Bus;
-import it.polimi.ecoware2.test.utils.Commons;
+import it.polimi.ecoware2.utils.Bus;
+import it.polimi.ecoware2.utils.Commons;
 
 import java.util.Arrays;
 
@@ -35,8 +35,12 @@ public class ECoWareContainerMain
 	
 	public static void main(String[] args) throws Exception {
 		
-		//String awsAccessKey = args[0];
-		//String awsSecretKey = args[1];
+		
+		// arg = 0 to 1 not used
+		// arg = 2 step duration (seconds)
+		// arg = 3 to 8 rubis steps (num user)
+		// arg = 9 to 14 pwitter steps (num user)
+				
 		String name = args[2];
 		
 		if(args!=null && args.length>3){
@@ -57,8 +61,7 @@ public class ECoWareContainerMain
 			}
 		
 			pwitterUserPerStep = steps2;
-			
-			
+
 		}
 		
 		
@@ -104,6 +107,8 @@ public class ECoWareContainerMain
 		}
 		*/
 		
+		// Monitoring
+		
 		new Thread(() -> {
 			int cont=0;
 				while(!end){
@@ -134,7 +139,10 @@ public class ECoWareContainerMain
 		
 		rubisJmeter.startTestWith(step, rubisUserPerStep, Commons.SERVER_HOST, 80, "/rubis/servlet/BrowseRegions");
 		pwitterJmeter.startTestWith(step, pwitterUserPerStep, Commons.SERVER_HOST, 8080, "pweets");
-
+		
+		
+		// Planning
+		
 		new Thread(() -> {
 			
 			LimitContainersPlanner lPlanner = new LimitContainersPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, rubisBusKey, pwitterBusKey);

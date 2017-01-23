@@ -1,7 +1,7 @@
 package it.polimi.ecoware2.analyzer;
 
 import it.polimi.ecoware2.executor.Allocation;
-import it.polimi.ecoware2.test.utils.Commons;
+import it.polimi.ecoware2.utils.Commons;
 
 import java.io.IOException;
 
@@ -29,33 +29,6 @@ public class ContainerProbe
 		HttpGet request = new HttpGet(Commons.EXECUTOR_ALLOCATION_ENDPOINT);
 	    try
 		{
-	    	/*
-			HttpResponse response = client.execute(request);
-			String jsonString = EntityUtils.toString(response.getEntity());	
-			JSONObject json = new JSONObject(jsonString);
-			@SuppressWarnings("unchecked")
-			Iterator<String> it = (Iterator<String>) json.keys(); 
-			
-			float pwitterCpu = 0;
-			float rubisCpu = 0;
-			
-			float pwitterMem = 0;
-			float rubisMem = 0;
-			
-			while(it.hasNext()){
-				String key = it.next();
-				if(key.contains("i-")){
-					JSONObject vmUsed = json.getJSONObject(key).getJSONObject("used");
-					pwitterCpu += vmUsed.getJSONObject("pwitter-web").getInt("cpu_cores");
-					rubisCpu += vmUsed.getJSONObject("rubis-jboss").getInt("cpu_cores");
-					
-					pwitterMem += vmUsed.getJSONObject("pwitter-web").getInt("mem_units")/2;
-					rubisMem += vmUsed.getJSONObject("rubis-jboss").getInt("mem_units")/2;
-					
-				}
-			}
-			*/
-	    	
 	    	HttpResponse response = client.execute(request);
 			String jsonString = EntityUtils.toString(response.getEntity());	
 			JSONObject json = new JSONObject(jsonString);
@@ -68,8 +41,6 @@ public class ContainerProbe
 			
 			this.pwitterAllocation = new Allocation(pwitterMem, pwitterCpu);
 			this.rubisAllocation = new Allocation(rubisMem, rubisCpu);
-
-			
 		}
 		catch (IOException | JSONException e)
 		{
@@ -90,6 +61,5 @@ public class ContainerProbe
 		ContainerProbe p = new ContainerProbe();
 		System.out.println(p.getPwitterAllocation());
 		System.out.println(p.getRubisAllocation());
-
 	}
 }

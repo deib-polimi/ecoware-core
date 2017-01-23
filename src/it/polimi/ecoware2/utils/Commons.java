@@ -1,9 +1,12 @@
-package it.polimi.ecoware2.test.utils;
+package it.polimi.ecoware2.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import it.polimi.ecoware2.executor.Allocation;
 
@@ -32,7 +35,7 @@ public class Commons
 	public static  Allocation MAX_ALLOCATION;//=new Allocation((long) (10*1E9), 10);
 	public static  Allocation MIN_ALLOCATION;//=new Allocation((long) (1*1E9), 1);
 
-	public static  float SLA;//=0.5f;
+	public static  float SLA; //=0.5f;
 	public static  int SAMPLE_TIME;// = 30;
 
 	public static  String EXECUTOR_EXECUTE_ENDPOINT;// = "http://localhost:8000/api/executor";
@@ -42,6 +45,20 @@ public class Commons
 	
 	public static  String AWS_SCALE_GROUP;// = "pwitter-web";
 	
+	public static  String AWS_ACCESS_KEY;
+	
+	public static  String AWS_SECRET_KEY;
+
+	public static  String AWS_REGION;
+
+	public static  String TEST_NAME;
+
+	public static  int STEP_DURATION;
+	
+	public static  int CONTROL_PERIOD;
+	
+	public static  List<Integer> STEPS;
+
 	static {
 		
 		try {
@@ -70,10 +87,16 @@ public class Commons
 			EXECUTOR_ALLOCATION_ENDPOINT = properties.getProperty("EXECUTOR_ALLOCATION_ENDPOINT");
 			SERVER_PATH = properties.getProperty("SERVER_PATH");
 			AWS_SCALE_GROUP = properties.getProperty("AWS_SCALE_GROUP");
-			CONTROLLER_ALPHA_RUBIS = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_RUBIS"));
-			CONTROLLER_ALPHA_PWITTER = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_PWITTER"));
+			// CONTROLLER_ALPHA_RUBIS = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_RUBIS"));
+			// CONTROLLER_ALPHA_PWITTER = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_PWITTER"));
 			CONTROLLER_ALPHA = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA"));
-
+			AWS_ACCESS_KEY = properties.getProperty("AWS_ACCESS_KEY");
+			AWS_SECRET_KEY = properties.getProperty("AWS_SECRET_KEY");
+			AWS_REGION = properties.getProperty("AWS_REGION");
+			TEST_NAME = properties.getProperty("TEST_NAME");
+			STEP_DURATION = Integer.parseInt(properties.getProperty("STEP_DURATION"));
+			CONTROL_PERIOD = Integer.parseInt(properties.getProperty("CONTROL_PERIOD"));
+			STEPS = Arrays.asList(properties.getProperty("STEPS").split(",")).stream().map(a -> Integer.parseInt(a)).collect(Collectors.toList());
 						
 		} catch (Exception e) {
 			e.printStackTrace();

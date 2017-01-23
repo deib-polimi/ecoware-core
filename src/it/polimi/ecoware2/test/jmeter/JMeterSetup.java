@@ -1,5 +1,7 @@
 package it.polimi.ecoware2.test.jmeter;
 
+import java.util.List;
+
 import kg.apc.jmeter.threads.UltimateThreadGroup;
 
 import org.apache.jmeter.control.LoopController;
@@ -29,7 +31,7 @@ public class JMeterSetup
 		this.collector = collector;
 	}
 	
-	public void startTestWith(int stepDuration, Integer[] userSteps, String serverHost, Integer serverPort, String serverPath){
+	public void startTestWith(int stepDuration, List<Integer> userSteps, String serverHost, Integer serverPort, String serverPath){
 		
 		HTTPSampler httpSampler = new HTTPSampler();
 		httpSampler.setDomain(serverHost);
@@ -46,8 +48,8 @@ public class JMeterSetup
 		
 		
 		String threadsSchedule="";
-		for(int i=0; i<userSteps.length; i++){
-			threadsSchedule+="spawn("+userSteps[i]+","+(i*stepDuration)+"s,0s,"+stepDuration+"s,0s)";
+		for(int i=0; i<userSteps.size(); i++){
+			threadsSchedule+="spawn("+userSteps.get(i)+","+(i*stepDuration)+"s,0s,"+stepDuration+"s,0s)";
 		}
 
 		System.out.println("Starting test with step duration: "+stepDuration+" user schedule: "+threadsSchedule);

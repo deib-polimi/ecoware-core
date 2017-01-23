@@ -1,8 +1,8 @@
 package it.polimi.ecoware2.planner;
 
 import it.polimi.ecoware2.executor.Allocation;
-import it.polimi.ecoware2.test.utils.Bus;
-import it.polimi.ecoware2.test.utils.Commons;
+import it.polimi.ecoware2.utils.Bus;
+import it.polimi.ecoware2.utils.Commons;
 
 
 public class LimitContainersPlanner extends Planner

@@ -1,7 +1,7 @@
 package it.polimi.ecoware2.analyzer;
 
-import it.polimi.ecoware2.test.utils.Commons;
-import it.polimi.ecoware2.test.utils.Report;
+import it.polimi.ecoware2.utils.Commons;
+import it.polimi.ecoware2.utils.Report;
 
 
 public class AnalysisReport extends Report
