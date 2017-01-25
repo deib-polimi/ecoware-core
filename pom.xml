@@ -31,7 +31,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>it.polimi.ecoware2.test.main.ECoWareContainerMain</mainClass>
+							<mainClass>it.polimi.ecoware2.main.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
