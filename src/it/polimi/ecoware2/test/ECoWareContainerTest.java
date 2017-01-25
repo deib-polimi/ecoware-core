@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class ECoWareContainerMain extends Test
+public class ECoWareContainerTest extends Test
 {
 	private ContainerProbe probe;
 	private ResourceAllocator executor;
@@ -23,7 +23,7 @@ public class ECoWareContainerMain extends Test
 	
 	private Stream<TestInfo> testInfos;
 	
-	public ECoWareContainerMain(List<File> files){
+	public ECoWareContainerTest(List<File> files){
 		testInfos = files.stream().map(a -> new TestInfo(a));
 	}
 	
