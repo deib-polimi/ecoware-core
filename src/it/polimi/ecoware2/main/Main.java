@@ -11,7 +11,7 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		Test test = new AWSAutoscalingTest(new File("test1.properties"));
+		Test test = new AWSAutoscalingTest(new File("example_test.properties"));
 		test.start();
 	}
 
