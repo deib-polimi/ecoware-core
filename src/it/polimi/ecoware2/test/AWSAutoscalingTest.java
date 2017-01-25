@@ -1,5 +1,7 @@
 package it.polimi.ecoware2.test;
 
+import java.io.File;
+
 import it.polimi.ecoware2.analyzer.AWSProbe;
 import it.polimi.ecoware2.executor.Allocation;
 import it.polimi.ecoware2.utils.Bus;
@@ -11,19 +13,25 @@ import com.amazonaws.regions.Regions;
 
 public class AWSAutoscalingTest extends Test
 {
-
+	private TestInfo testInfo;
+	private String busKey;
+	
 	private static AWSProbe probe;
-	private static String busKey = "aws-autoscaling-experiment";
-
+	
+	public AWSAutoscalingTest(File properties){
+		testInfo = new TestInfo(properties);
+		busKey = testInfo.name;
+	}
+	
+	
 	@Override
 	public void start() {
-
 		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), Commons.AWS_ACCESS_KEY, Commons.AWS_SECRET_KEY, Regions.valueOf(Commons.AWS_REGION), Commons.AWS_SCALE_GROUP);
 		Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 		
 		startAllocationMonitoringLoop();
 		
-		startJMeter(busKey);
+		startTest(testInfo, busKey);
 	}
 	
 	@Override

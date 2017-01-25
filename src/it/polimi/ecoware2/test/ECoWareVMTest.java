@@ -1,5 +1,7 @@
 package it.polimi.ecoware2.test;
 
+import java.io.File;
+
 import it.polimi.ecoware2.analyzer.AWSProbe;
 import it.polimi.ecoware2.executor.AWSExecutor;
 import it.polimi.ecoware2.executor.Allocation;
@@ -20,8 +22,14 @@ public class ECoWareVMTest extends Test
 	private static ResourceAllocator executor;
 	private static Planner planner;
 	
-	private static String busKey = "ecoware-vm-experiment";
-
+	private TestInfo testInfo;
+	private String busKey;
+	
+	public ECoWareVMTest(File properties){
+		testInfo = new TestInfo(properties);
+		busKey = testInfo.name;
+	}
+	
 	@Override
 	public void start()
 	{
@@ -36,10 +44,10 @@ public class ECoWareVMTest extends Test
 
 		startPlanningAndExecutionMonitoringLoop();
 		
-		startJMeter(busKey);		
+		startTest(testInfo, busKey);		
 	}
 
-	private static void forceInitialAllocation() {
+	private void forceInitialAllocation() {
 		Planner startingPlanner = new MinPlanner(Commons.MIN_ALLOCATION, Commons.MAX_ALLOCATION, busKey);
 		Allocation initialAlloc=startingPlanner.nextResourceAllocation();
 		executor.scheduleNextAllocation();

@@ -7,12 +7,15 @@ import it.polimi.ecoware2.utils.Commons;
 
 public abstract class Test
 {
-	private JMeterSetup jmeter; 
 	private boolean end;
 	
-	protected void startJMeter(String busKey){
-		String fileName = Commons.TEST_NAME+"-"+System.currentTimeMillis()+"--"+Commons.STEPS+"_"+Commons.STEP_DURATION+"_"+Commons.SAMPLE_TIME+"_"+Commons.CONTROL_PERIOD+".csv";
-		jmeter=new JMeterSetup();
+
+	protected void startTest(TestInfo testInfo, String busKey){
+		
+		String fileName = testInfo.name+"-"+System.currentTimeMillis()+"--"+testInfo.steps+"_"+testInfo.stepDuration+"_"+Commons.SAMPLE_TIME+"_"+Commons.CONTROL_PERIOD+".csv";
+
+		JMeterSetup jmeter=new JMeterSetup();		
+		
 		jmeter.setCollector(new JMeterProbeAndAnalyzer(fileName, () -> { 
 			System.out.println("end callback");
 			end = true; 
@@ -21,8 +24,7 @@ public abstract class Test
 		System.out.println("New JMeter test is going to be launched");
 		System.out.println("Saving output on file "+fileName);
 		
-		jmeter.startTestWith(Commons.STEP_DURATION, Commons.STEPS, Commons.SERVER_HOST, Commons.SERVER_PORT, Commons.SERVER_PATH);
-
+		jmeter.startTestWith(testInfo.stepDuration, testInfo.steps, testInfo.serverHost, testInfo.serverPort, testInfo.serverPath);
 	}
 	
 	abstract public void start();

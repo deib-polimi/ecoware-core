@@ -4,6 +4,11 @@ import it.polimi.ecoware2.executor.Allocation;
 import it.polimi.ecoware2.utils.Commons;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -17,10 +22,11 @@ import com.amazonaws.util.json.JSONObject;
 
 public class ContainerProbe
 {
-	private Allocation pwitterAllocation;
-	private Allocation rubisAllocation;
-
-	public ContainerProbe(){
+	private Stream<Allocation> allocations;
+	private Stream<String> appNames;
+	
+	public ContainerProbe(List<String> appNames){
+		this.appNames = appNames.stream();
 		refreshCurrentAllocation();
 	}
 	
@@ -32,15 +38,23 @@ public class ContainerProbe
 	    	HttpResponse response = client.execute(request);
 			String jsonString = EntityUtils.toString(response.getEntity());	
 			JSONObject json = new JSONObject(jsonString);
-		
-			float pwitterCpu = json.getJSONObject("pwitter-web").getString("CpusetCpus").split(",").length;
-			float rubisCpu = json.getJSONObject("rubis-jboss").getString("CpusetCpus").split(",").length;
 			
-			long pwitterMem = json.getJSONObject("pwitter-web").getLong("Memory");
-			long rubisMem = json.getJSONObject("rubis-jboss").getLong("Memory");
+			allocations = appNames.map(a -> {
+				float cpu = -1;
+				long mem = -1;
+				try
+				{
+					cpu = json.getJSONObject(a).getString("CpusetCpus").split(",").length;
+					mem = json.getJSONObject(a).getLong("Memory");
+				}
+				catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return new Allocation(mem, cpu);
+			});
 			
-			this.pwitterAllocation = new Allocation(pwitterMem, pwitterCpu);
-			this.rubisAllocation = new Allocation(rubisMem, rubisCpu);
 		}
 		catch (IOException | JSONException e)
 		{
@@ -48,18 +62,17 @@ public class ContainerProbe
 		}
 	}
 	
-	public synchronized Allocation getPwitterAllocation(){
-		return pwitterAllocation;
+	public synchronized Map<String, Allocation> getAllocations(){
+		Map<String, Allocation> res = new HashMap<String, Allocation>();
+		
+		List<Allocation> all = allocations.collect(Collectors.toList());
+		List<String> names = appNames.collect(Collectors.toList());
+
+		for(int i = 0; i < allocations.count(); i++){
+			res.put(names.get(i), all.get(i));
+		}
+		
+		return res;
 	}
 	
-	public synchronized Allocation getRubisAllocation(){
-		return rubisAllocation;
-	}
-	
-	
-	public static void main(String[] args){
-		ContainerProbe p = new ContainerProbe();
-		System.out.println(p.getPwitterAllocation());
-		System.out.println(p.getRubisAllocation());
-	}
 }
