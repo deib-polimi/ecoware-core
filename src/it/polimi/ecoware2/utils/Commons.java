@@ -20,11 +20,6 @@ public class Commons
 	public static final String CURRENT_ALLOCATION_KEY = "___ca___";
 	public static float CONTROLLER_ALPHA;
 	
-	public static String CONTAINER_HOST;// = "131.175.135.184";
-	public static int CONTAINER_PORT;// = 2375;
-
-	public static  String CONTAINER_ID;// = "0646d0cd73155d57cff79533dfb662d32c06ed881eec898bf8e01198b6a0ce76";
-	
 	public static  Allocation MAX_ALLOCATION;//=new Allocation((long) (10*1E9), 10);
 	public static  Allocation MIN_ALLOCATION;//=new Allocation((long) (1*1E9), 1);
 
@@ -59,9 +54,6 @@ public class Commons
 				String value = properties.getProperty(key);
 				System.out.println(key + ": " + value);
 			}
-			
-			CONTAINER_HOST = properties.getProperty("CONTAINER_HOST");
-			CONTAINER_PORT = Integer.parseInt(properties.getProperty("CONTAINER_PORT"));
 		
 			MAX_ALLOCATION = new Allocation((long) (Integer.parseInt(properties.getProperty("MAX_ALLOCATION_MEM"))*1E9), Integer.parseInt(properties.getProperty("MAX_ALLOCATION_CORE")));
 			MIN_ALLOCATION = new Allocation((long) (Integer.parseInt(properties.getProperty("MIN_ALLOCATION_MEM"))*1E9), Integer.parseInt(properties.getProperty("MIN_ALLOCATION_CORE")));
@@ -73,8 +65,7 @@ public class Commons
 			EXECUTOR_ALLOCATION_ENDPOINT = properties.getProperty("EXECUTOR_ALLOCATION_ENDPOINT");
 		
 			AWS_SCALE_GROUP = properties.getProperty("AWS_SCALE_GROUP");
-			// CONTROLLER_ALPHA_RUBIS = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_RUBIS"));
-			// CONTROLLER_ALPHA_PWITTER = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA_PWITTER"));
+		
 			CONTROLLER_ALPHA = Float.parseFloat(properties.getProperty("CONTROLLER_ALPHA"));
 			AWS_ACCESS_KEY = properties.getProperty("AWS_ACCESS_KEY");
 			AWS_SECRET_KEY = properties.getProperty("AWS_SECRET_KEY");
