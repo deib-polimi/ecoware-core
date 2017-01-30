@@ -37,6 +37,9 @@ public class Commons
 
 	public static  String AWS_REGION;
 
+	public static  long AWS_VM_FLAVOR_CPU;
+
+	public static  long AWS_VM_FLAVOR_MEM;
 	
 
 	static {
@@ -71,6 +74,8 @@ public class Commons
 			AWS_SECRET_KEY = properties.getProperty("AWS_SECRET_KEY");
 			AWS_REGION = properties.getProperty("AWS_REGION");
 			
+			AWS_VM_FLAVOR_CPU = Long.parseLong(properties.getProperty("AWS_VM_FLAVOR_CPU"));
+			AWS_VM_FLAVOR_MEM = Long.parseLong(properties.getProperty("AWS_VM_FLAVOR_MEM"));
 						
 		} catch (Exception e) {
 			e.printStackTrace();

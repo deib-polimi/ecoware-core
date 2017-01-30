@@ -26,7 +26,7 @@ public class AWSAutoscalingTest extends Test
 	
 	@Override
 	public void start() {
-		probe = new AWSProbe(new Allocation(2*(long)1E9, 1), Commons.AWS_ACCESS_KEY, Commons.AWS_SECRET_KEY, Regions.valueOf(Commons.AWS_REGION), Commons.AWS_SCALE_GROUP);
+		probe = new AWSProbe(new Allocation(Commons.AWS_VM_FLAVOR_MEM*(long)1E9, Commons.AWS_VM_FLAVOR_CPU), Commons.AWS_ACCESS_KEY, Commons.AWS_SECRET_KEY, Regions.valueOf(Commons.AWS_REGION), Commons.AWS_SCALE_GROUP);
 		Bus.getShared(busKey).put(Commons.CURRENT_ALLOCATION_KEY, probe.getCurrentAllocation());
 		
 		startAllocationMonitoringLoop();
