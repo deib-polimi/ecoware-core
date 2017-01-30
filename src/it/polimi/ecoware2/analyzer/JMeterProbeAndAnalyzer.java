@@ -64,6 +64,8 @@ public class JMeterProbeAndAnalyzer extends ResultCollector
       
 		
 	}
+	
+	
 	public void sampleOccurred(SampleEvent event){
 		
 		Allocation a = (Allocation) Bus.getShared(busKey).get(Commons.CURRENT_ALLOCATION_KEY);
